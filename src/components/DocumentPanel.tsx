@@ -48,20 +48,21 @@ export function DocumentPanel({ label, value, onChange, accent }: DocumentPanelP
           onChange={handleFile}
         />
       </div>
-      {!value ? (
-        <div className="flex-1 flex flex-col items-center justify-center p-8 text-gray-400">
-          <FileText className="w-12 h-12 mb-3 opacity-30" style={{ color: accent }} />
-          <p className="text-sm">在此粘贴或输入文档内容</p>
-          <p className="text-xs mt-1">支持 .txt / .md 文件上传</p>
-        </div>
-      ) : null}
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder=""
-        className={`flex-1 p-4 resize-none text-sm leading-relaxed text-gray-800 placeholder-gray-400 focus:outline-none font-mono bg-white ${!value ? 'hidden' : ''}`}
-        spellCheck={false}
-      />
+      <div className="flex-1 relative min-h-0">
+        {!value && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-gray-400 pointer-events-none z-10">
+            <FileText className="w-12 h-12 mb-3 opacity-30" style={{ color: accent }} />
+            <p className="text-sm">在此粘贴或输入文档内容</p>
+            <p className="text-xs mt-1">支持 .txt / .md 文件上传</p>
+          </div>
+        )}
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="absolute inset-0 w-full h-full p-4 resize-none text-sm leading-relaxed text-gray-800 focus:outline-none font-mono bg-white"
+          spellCheck={false}
+        />
+      </div>
     </div>
   );
 }
